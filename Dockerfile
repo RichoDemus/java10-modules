@@ -1,7 +1,8 @@
 FROM maven:3.5.3-jdk-10-slim as builder
 RUN mkdir src
-COPY . src/
 WORKDIR src
+
+COPY . /src/
 RUN mvn verify
 RUN mkdir jars
 RUN cp core/target/core.jar jars

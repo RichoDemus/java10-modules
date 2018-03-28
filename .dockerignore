@@ -1,6 +1,15 @@
 **
+!gradle
+!gradlew
+
+!settings.gradle
+!build.gradle
 !pom.xml
-!core/pom.xml
+
 !core/src
-!main/pom.xml
+!core/build.gradle
+!core/pom.xml
+
 !main/src
+!main/build.gradle
+!main/pom.xml

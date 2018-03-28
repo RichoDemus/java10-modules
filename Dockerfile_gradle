@@ -1,0 +1,20 @@
+FROM openjdk:10-jdk as builder
+RUN mkdir src
+WORKDIR src
+
+COPY gradlew /src/
+COPY gradle /src/gradle
+RUN ./gradlew --no-daemon #just so that we download gradle in its own layer
+
+COPY . /src/
+RUN ./gradlew --no-daemon
+RUN mkdir jars
+RUN cp core/build/libs/core.jar jars
+RUN cp main/build/libs/main.jar jars
+
+FROM openjdk:10-jre
+RUN mkdir app
+WORKDIR app
+COPY --from=builder /src/jars .
+
+CMD ["java","--module-path","core.jar:main.jar","-m","main/com.richodemus.main.Main"]
